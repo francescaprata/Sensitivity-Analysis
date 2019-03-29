@@ -1,0 +1,683 @@
+#Subsetting according to floor
+floor0 <- subset(Wifi_TrainSetNOZero, FLOOR == 0)
+floor1 <- subset(Wifi_TrainSetNOZero, FLOOR == 1)
+floor2 <- subset(Wifi_TrainSetNOZero, FLOOR == 2)
+floor3 <- subset(Wifi_TrainSetNOZero, FLOOR == 3)
+floor4 <- subset(Wifi_TrainSetNOZero, FLOOR == 4)
+
+#############################
+# Running KNN on floor 0 #
+#############################
+
+##BUILDING ID ##
+
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor0$BUILDINGID,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor0[inTrain,]
+testing <- floor0[-inTrain,]
+
+#distinguish x & y values
+WifiTrain_xvalues <- training[,1:465]
+WifiTrain_yvalues <- training[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+WifiTest_xvalues <- testing[,1:465]
+WifiTest_yvalues <- testing[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitbuilding <- train(x = WifiTrain_xvalues, 
+                     y = WifiTrain_yvalues$BUILDINGID,
+                     method = "knn",
+                     metric = "Accuracy",
+                     tuneLength = 1,
+                     trControl = fitControlKnn)
+
+KnnFitbuilding
+
+#Predict outcomes on the testing data
+PredictionKnn_building <- predict(KnnFitbuilding, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#See the most important predictors
+varImp(KnnFitbuilding)
+
+#Show values in confusion matrix
+confusionMatrix(data = PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_building <- PredictionKnn_building
+
+## LONGITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor0$LONGITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor0[inTrain,]
+testing <- floor0[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLon <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LONGITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLon
+
+#Predict outcomes on the testing data
+PredictionKnn_lon <- predict(KnnFitLon, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#See the most important predictors
+varImp(KnnFitLon)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lon <- PredictionKnn_lon
+
+## LATITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor0$LATITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor0[inTrain,]
+testing <- floor0[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLat <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LATITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLat
+
+#Predict outcomes on the testing data
+PredictionKnn_lat <- predict(KnnFitLat, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#See the most important predictors
+varImp(KnnFitLat)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lat <- PredictionKnn_lat
+
+#Saving this file as .rds
+saveRDS(WifiTest_yvalues, file = "actualVSpredicted_KNNfloor0.rds") 
+
+
+
+###########################
+# Running KNN on floor 1 #
+##########################
+
+##BUILDING ID ##
+
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor1$BUILDINGID,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor1[inTrain,]
+testing <- floor1[-inTrain,]
+
+#distinguish x & y values
+WifiTrain_xvalues <- training[,1:465]
+WifiTrain_yvalues <- training[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+WifiTest_xvalues <- testing[,1:465]
+WifiTest_yvalues <- testing[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitbuilding <- train(x = WifiTrain_xvalues, 
+                     y = WifiTrain_yvalues$BUILDINGID,
+                     method = "knn",
+                     metric = "Accuracy",
+                     tuneLength = 1,
+                     trControl = fitControlKnn)
+
+KnnFitbuilding
+
+#Predict outcomes on the testing data
+PredictionKnn_building <- predict(KnnFitbuilding, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#See the most important predictors
+varImp(KnnFitbuilding)
+
+#Show values in confusion matrix
+confusionMatrix(data = PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_building <- PredictionKnn_building
+
+## LONGITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor1$LONGITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor1[inTrain,]
+testing <- floor1[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLon <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LONGITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLon
+
+#Predict outcomes on the testing data
+PredictionKnn_lon <- predict(KnnFitLon, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#See the most important predictors
+varImp(KnnFitLon)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lon <- PredictionKnn_lon
+
+## LATITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor1$LATITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor1[inTrain,]
+testing <- floor1[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLat <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LATITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLat
+
+#Predict outcomes on the testing data
+PredictionKnn_lat <- predict(KnnFitLat, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#See the most important predictors
+varImp(KnnFitLat)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lat <- PredictionKnn_lat
+
+#Saving this file as .rds
+saveRDS(WifiTest_yvalues, file = "actualVSpredicted_KNNfloor1.rds") 
+
+#############################
+# Running KNN on floor 2 #
+#############################
+
+##BUILDING ID ##
+
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor2$BUILDINGID,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor2[inTrain,]
+testing <- floor2[-inTrain,]
+
+#distinguish x & y values
+WifiTrain_xvalues <- training[,1:465]
+WifiTrain_yvalues <- training[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+WifiTest_xvalues <- testing[,1:465]
+WifiTest_yvalues <- testing[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitbuilding <- train(x = WifiTrain_xvalues, 
+                     y = WifiTrain_yvalues$BUILDINGID,
+                     method = "knn",
+                     metric = "Accuracy",
+                     tuneLength = 1,
+                     trControl = fitControlKnn)
+
+KnnFitbuilding
+
+#Predict outcomes on the testing data
+PredictionKnn_building <- predict(KnnFitbuilding, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#See the most important predictors
+varImp(KnnFitbuilding)
+
+#Show values in confusion matrix
+confusionMatrix(data = PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_building <- PredictionKnn_building
+
+## LONGITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor2$LONGITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor2[inTrain,]
+testing <- floor2[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLon <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LONGITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLon
+
+#Predict outcomes on the testing data
+PredictionKnn_lon <- predict(KnnFitLon, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#See the most important predictors
+varImp(KnnFitLon)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lon <- PredictionKnn_lon
+
+## LATITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor2$LATITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor2[inTrain,]
+testing <- floor2[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLat <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LATITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLat
+
+#Predict outcomes on the testing data
+PredictionKnn_lat <- predict(KnnFitLat, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#See the most important predictors
+varImp(KnnFitLat)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lat <- PredictionKnn_lat
+
+#Saving this file as .rds
+saveRDS(WifiTest_yvalues, file = "actualVSpredicted_KNNfloor2.rds") 
+
+#############################
+# Running KNN on floor 3 #
+#############################
+
+##BUILDING ID ##
+
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor3$BUILDINGID,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor3[inTrain,]
+testing <- floor3[-inTrain,]
+
+#distinguish x & y values
+WifiTrain_xvalues <- training[,1:465]
+WifiTrain_yvalues <- training[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+WifiTest_xvalues <- testing[,1:465]
+WifiTest_yvalues <- testing[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitbuilding <- train(x = WifiTrain_xvalues, 
+                     y = WifiTrain_yvalues$BUILDINGID,
+                     method = "knn",
+                     metric = "Accuracy",
+                     tuneLength = 1,
+                     trControl = fitControlKnn)
+
+KnnFitbuilding
+
+#Predict outcomes on the testing data
+PredictionKnn_building <- predict(KnnFitbuilding, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#See the most important predictors
+varImp(KnnFitbuilding)
+
+#Show values in confusion matrix
+confusionMatrix(data = PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_building <- PredictionKnn_building
+
+## LONGITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor3$LONGITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor3[inTrain,]
+testing <- floor3[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLon <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LONGITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLon
+
+#Predict outcomes on the testing data
+PredictionKnn_lon <- predict(KnnFitLon, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#See the most important predictors
+varImp(KnnFitLon)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lon <- PredictionKnn_lon
+
+## LATITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor3$LATITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor3[inTrain,]
+testing <- floor3[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLat <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LATITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLat
+
+#Predict outcomes on the testing data
+PredictionKnn_lat <- predict(KnnFitLat, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#See the most important predictors
+varImp(KnnFitLat)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lat <- PredictionKnn_lat
+
+#Saving this file as .rds
+saveRDS(WifiTest_yvalues, file = "actualVSpredicted_KNNfloor3.rds")
+
+#############################
+# Running KNN on floor 4 #
+#############################
+
+##BUILDING ID ##
+
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor4$BUILDINGID,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor4[inTrain,]
+testing <- floor4[-inTrain,]
+
+#distinguish x & y values
+WifiTrain_xvalues <- training[,1:465]
+WifiTrain_yvalues <- training[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+WifiTest_xvalues <- testing[,1:465]
+WifiTest_yvalues <- testing[,c("BUILDINGID","LONGITUDE","LATITUDE")]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitbuilding <- train(x = WifiTrain_xvalues, 
+                     y = WifiTrain_yvalues$BUILDINGID,
+                     method = "knn",
+                     metric = "Accuracy",
+                     tuneLength = 1,
+                     trControl = fitControlKnn)
+
+KnnFitbuilding
+
+#Predict outcomes on the testing data
+PredictionKnn_building <- predict(KnnFitbuilding, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#See the most important predictors
+varImp(KnnFitbuilding)
+
+#Show values in confusion matrix
+confusionMatrix(data = PredictionKnn_building, WifiTest_yvalues$BUILDINGID)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_building <- PredictionKnn_building
+
+## LONGITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor4$LONGITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor4[inTrain,]
+testing <- floor4[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLon <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LONGITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLon
+
+#Predict outcomes on the testing data
+PredictionKnn_lon <- predict(KnnFitLon, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#See the most important predictors
+varImp(KnnFitLon)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lon <- PredictionKnn_lon
+
+## LATITUDE ##
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = floor4$LATITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- floor4[inTrain,]
+testing <- floor4[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLat <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LATITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLat
+
+#Predict outcomes on the testing data
+PredictionKnn_lat <- predict(KnnFitLat, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#See the most important predictors
+varImp(KnnFitLat)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lat, WifiTest_yvalues$LATITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lat <- PredictionKnn_lat
+
+#Saving this file as .rds
+saveRDS(WifiTest_yvalues, file = "actualVSpredicted_KNNfloor4.rds")

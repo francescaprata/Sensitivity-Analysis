@@ -1,0 +1,15 @@
+###########################################
+# Name: Francesca Prata                   #         
+# Project: WiFi Locationing               #        
+# Script: Evaluating models               #                  
+# Date: 5 March 2019                      #                  
+# Version: 1                              #                  
+###########################################
+
+#Retrieving previous dataframe 
+source(file = "2.Knn_pipeline_v1.R" & "3.RandomForest_pipeline_v1.R" & "4.C5_pipeline_v1.R")
+
+#Example 
+ModelData <- resamples(list(CART = cartFit1, SVM = svmFit1, C50 = c50Fit1))
+
+Summary(ModelData)

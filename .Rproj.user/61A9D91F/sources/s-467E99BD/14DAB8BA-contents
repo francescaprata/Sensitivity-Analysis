@@ -1,0 +1,33 @@
+###################################
+# Name: Francesca Prata           #                          
+# Project: WiFi Locationing       #  
+# Script: Calculating the errors  #                  
+# Date: 13 March 2019             #                  
+# Version: 2                      #                  
+###################################
+
+#############
+# KNN model #
+#############
+
+#Calculating the errors of building ID
+actualVSpredicted_KNN1$BUILDINGID <- as.integer(actualVSpredicted_KNN1$BUILDINGID)
+actualVSpredicted_KNN1$PredictionKnn_building <- as.integer(actualVSpredicted_KNN1$PredictionKnn_building)
+actualVSpredicted_KNN1 <- mutate(actualVSpredicted_KNN1, errorsBUILDINGid = PredictionKnn_building - BUILDINGID)
+
+#Calculating the errors of floor
+actualVSpredicted_KNN1$FLOOR <- as.integer(actualVSpredicted_KNN1$FLOOR)
+actualVSpredicted_KNN1$PredictionKnn_floor <- as.integer(actualVSpredicted_KNN1$PredictionKnn_floor)
+actualVSpredicted_KNN1 <- mutate(actualVSpredicted_KNN1, errorsFLOOR = PredictionKnn_floor - FLOOR)
+
+#Calculating the errors of longitude
+actualVSpredicted_KNN1$PredictionKnn_lon <- as.integer(actualVSpredicted_KNN1$PredictionKnn_lon)
+actualVSpredicted_KNN1 <- mutate(actualVSpredicted_KNN1, errorsLon = PredictionKnn_lon - LONGITUDE)
+
+#Calculating the errors of latitude
+actualVSpredicted_KNN1$PredictionKnn_lat <- as.integer(actualVSpredicted_KNN1$PredictionKnn_lat)
+actualVSpredicted_KNN1 <- mutate(actualVSpredicted_KNN1, errorsLat = PredictionKnn_lat - LATITUDE)
+
+
+#Save updated version 
+saveRDS(actualVSpredicted_KNN1, file = "actualVSpredicted_KNN1.rds")

@@ -1,0 +1,94 @@
+###########
+# Floor 0 #
+###########
+#Calculating the errors of building ID
+actualVSpredicted_KNNfloor0$BUILDINGID <- as.integer(actualVSpredicted_KNNfloor0$BUILDINGID)
+actualVSpredicted_KNNfloor0$PredictionKnn_building <- as.integer(actualVSpredicted_KNNfloor0$PredictionKnn_building)
+actualVSpredicted_KNNfloor0 <- mutate(actualVSpredicted_KNNfloor0, errorsBUILDINGID = PredictionKnn_building - BUILDINGID)
+
+#Calculating the errors of longitude
+actualVSpredicted_KNNfloor0$PredictionKnn_lon <- as.integer(actualVSpredicted_KNNfloor0$PredictionKnn_lon)
+actualVSpredicted_KNNfloor0 <- mutate(actualVSpredicted_KNNfloor0, errorsLon = PredictionKnn_lon - LONGITUDE)
+
+#Calculating the errors of latitude
+actualVSpredicted_KNNfloor0$PredictionKnn_lat <- as.integer(actualVSpredicted_KNNfloor0$PredictionKnn_lat)
+actualVSpredicted_KNNfloor0 <- mutate(actualVSpredicted_KNNfloor0, errorsLat = PredictionKnn_lat - LATITUDE)
+
+#Save updated version 
+saveRDS(actualVSpredicted_KNNfloor0, file = "actualVSpredicted_KNNfloor0.rds")
+
+###########
+# Floor 1 #
+###########
+#Calculating the errors of building ID
+actualVSpredicted_KNNfloor1$BUILDINGID <- as.integer(actualVSpredicted_KNNfloor1$BUILDINGID)
+actualVSpredicted_KNNfloor1$PredictionKnn_building <- as.integer(actualVSpredicted_KNNfloor1$PredictionKnn_building)
+actualVSpredicted_KNNfloor1 <- mutate(actualVSpredicted_KNNfloor1, errorsBUILDINGID = PredictionKnn_building - BUILDINGID)
+
+#Calculating the errors of longitude
+actualVSpredicted_KNNfloor1$PredictionKnn_lon <- as.integer(actualVSpredicted_KNNfloor1$PredictionKnn_lon)
+actualVSpredicted_KNNfloor1 <- mutate(actualVSpredicted_KNNfloor1, errorsLon = PredictionKnn_lon - LONGITUDE)
+
+#Calculating the errors of latitude
+actualVSpredicted_KNNfloor1$PredictionKnn_lat <- as.integer(actualVSpredicted_KNNfloor1$PredictionKnn_lat)
+actualVSpredicted_KNNfloor1 <- mutate(actualVSpredicted_KNNfloor1, errorsLat = PredictionKnn_lat - LATITUDE)
+
+#Save updated version 
+saveRDS(actualVSpredicted_KNNfloor1, file = "actualVSpredicted_KNNfloor1.rds")
+
+###########
+# Floor 2 #
+###########
+#Calculating the errors of building ID
+actualVSpredicted_KNNfloor2$BUILDINGID <- as.integer(actualVSpredicted_KNNfloor2$BUILDINGID)
+actualVSpredicted_KNNfloor2$PredictionKnn_building <- as.integer(actualVSpredicted_KNNfloor2$PredictionKnn_building)
+actualVSpredicted_KNNfloor2 <- mutate(actualVSpredicted_KNNfloor2, errorsBUILDINGID = PredictionKnn_building - BUILDINGID)
+
+#Calculating the errors of longitude
+actualVSpredicted_KNNfloor2$PredictionKnn_lon <- as.integer(actualVSpredicted_KNNfloor2$PredictionKnn_lon)
+actualVSpredicted_KNNfloor2 <- mutate(actualVSpredicted_KNNfloor2, errorsLon = PredictionKnn_lon - LONGITUDE)
+
+#Calculating the errors of latitude
+actualVSpredicted_KNNfloor2$PredictionKnn_lat <- as.integer(actualVSpredicted_KNNfloor2$PredictionKnn_lat)
+actualVSpredicted_KNNfloor2 <- mutate(actualVSpredicted_KNNfloor2, errorsLat = PredictionKnn_lat - LATITUDE)
+
+#Save updated version 
+saveRDS(actualVSpredicted_KNNfloor2, file = "actualVSpredicted_KNNfloor2.rds")
+
+###########
+# Floor 3 #
+###########
+#Calculating the errors of building ID
+actualVSpredicted_KNNfloor3$BUILDINGID <- as.integer(actualVSpredicted_KNNfloor3$BUILDINGID)
+actualVSpredicted_KNNfloor3$PredictionKnn_building <- as.integer(actualVSpredicted_KNNfloor3$PredictionKnn_building)
+actualVSpredicted_KNNfloor3 <- mutate(actualVSpredicted_KNNfloor3, errorsBUILDINGID = PredictionKnn_building - BUILDINGID)
+
+#Calculating the errors of longitude
+actualVSpredicted_KNNfloor3$PredictionKnn_lon <- as.integer(actualVSpredicted_KNNfloor3$PredictionKnn_lon)
+actualVSpredicted_KNNfloor3 <- mutate(actualVSpredicted_KNNfloor3, errorsLon = PredictionKnn_lon - LONGITUDE)
+
+#Calculating the errors of latitude
+actualVSpredicted_KNNfloor3$PredictionKnn_lat <- as.integer(actualVSpredicted_KNNfloor3$PredictionKnn_lat)
+actualVSpredicted_KNNfloor3 <- mutate(actualVSpredicted_KNNfloor3, errorsLat = PredictionKnn_lat - LATITUDE)
+
+#Save updated version 
+saveRDS(actualVSpredicted_KNNfloor3, file = "actualVSpredicted_KNNfloor3.rds")
+
+###########
+# Floor 4 #
+###########
+#Calculating the errors of building ID
+actualVSpredicted_KNNfloor4$BUILDINGID <- as.integer(actualVSpredicted_KNNfloor4$BUILDINGID)
+actualVSpredicted_KNNfloor4$PredictionKnn_building <- as.integer(actualVSpredicted_KNNfloor4$PredictionKnn_building)
+actualVSpredicted_KNNfloor4 <- mutate(actualVSpredicted_KNNfloor4, errorsBUILDINGID = PredictionKnn_building - BUILDINGID)
+
+#Calculating the errors of longitude
+actualVSpredicted_KNNfloor4$PredictionKnn_lon <- as.integer(actualVSpredicted_KNNfloor4$PredictionKnn_lon)
+actualVSpredicted_KNNfloor4 <- mutate(actualVSpredicted_KNNfloor4, errorsLon = PredictionKnn_lon - LONGITUDE)
+
+#Calculating the errors of latitude
+actualVSpredicted_KNNfloor4$PredictionKnn_lat <- as.integer(actualVSpredicted_KNNfloor4$PredictionKnn_lat)
+actualVSpredicted_KNNfloor4 <- mutate(actualVSpredicted_KNNfloor4, errorsLat = PredictionKnn_lat - LATITUDE)
+
+#Save updated version 
+saveRDS(actualVSpredicted_KNNfloor4, file = "actualVSpredicted_KNNfloor4.rds")

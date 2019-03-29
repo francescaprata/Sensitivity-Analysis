@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553594043565.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5348BDD",
+    "lastKnownWriteTime" : 1553615796,
+    "last_content_update" : 1553677932669,
+    "path" : "C:/Users/User/Desktop/BSSA/Module4/SentimentAnalysis/1.DoParallel_DataExploration_v1.R",
+    "project_path" : "1.DoParallel_DataExploration_v1.R",
+    "properties" : {
+        "cursorPosition" : "30,0",
+        "scrollLine" : "18",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

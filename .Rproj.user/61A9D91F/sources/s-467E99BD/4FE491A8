@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553770464347.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4FE491A8",
+    "lastKnownWriteTime" : 1553763387,
+    "last_content_update" : 1553763387,
+    "path" : "C:/Users/User/Desktop/BSSA/Module4/SentimentAnalysis/4.C5_recoded_v1.R",
+    "project_path" : "4.C5_recoded_v1.R",
+    "properties" : {
+        "cursorPosition" : "46,23",
+        "scrollLine" : "25",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

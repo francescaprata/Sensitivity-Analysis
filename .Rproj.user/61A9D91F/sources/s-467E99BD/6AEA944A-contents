@@ -1,0 +1,56 @@
+#############################################################################
+# Name: Francesca Prata                                                     #                          
+# Project: WiFi Locationing                                                 #                   
+# Script: KNN for predicting longitude with changed WAPs and zero variance  #                  
+# Date: 13 March 2019                                                       #                   
+# Version: 6                                                                #                  
+#############################################################################
+
+#Retrieving previous dataframe 
+#source(file = "1.Importing_Dataset_v3.R")
+
+#Set longitude and latitude as numerical
+Wifi_TrainSetNOZero$LONGITUDE <- as.numeric(Wifi_TrainSetNOZero$LONGITUDE)
+Wifi_TrainSetNOZero$LATITUDE <- as.numeric(Wifi_TrainSetNOZero$LATITUDE)
+
+#Wifi_TestSet$BUILDINGID <- as.factor(Wifi_TestSet$BUILDINGID)
+#Wifi_TestSet$FLOOR <- as.factor(Wifi_TestSet$FLOOR)
+
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = Wifi_TrainSetNOZero$LONGITUDE,
+                              p = 0.4,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- Wifi_TrainSetNOZero[inTrain,]
+testing <- Wifi_TrainSetNOZero[-inTrain,]
+
+#Setting cross validation parameters
+fitControlKnn <- trainControl(method = "repeatedcv",
+                              number = 10,
+                              repeats = 1)
+
+#Training KNN model
+set.seed(123)
+KnnFitLon <- train(x = WifiTrain_xvalues, 
+                   y = WifiTrain_yvalues$LONGITUDE,
+                   method = "knn",
+                   metric = "RMSE",
+                   tuneLength = 1,
+                   trControl = fitControlKnn)
+
+KnnFitLon
+
+#Predict outcomes on the testing data
+PredictionKnn_lon <- predict(KnnFitLon, newdata = WifiTest_xvalues)
+postResample(PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#See the most important predictors
+varImp(KnnFitLon)
+
+#Show values in confusion matrix
+#confusionMatrix(data = PredictionKnn_lon, WifiTest_yvalues$LONGITUDE)
+
+#Add predicted to test values
+WifiTest_yvalues$PredictionKnn_lon <- PredictionKnn_lon

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553678209495.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EF45DD73",
+    "lastKnownWriteTime" : 1553702134,
+    "last_content_update" : 1553702134412,
+    "path" : "C:/Users/User/Desktop/BSSA/Module4/SentimentAnalysis/2.Preprocessing_v2.R",
+    "project_path" : "2.Preprocessing_v2.R",
+    "properties" : {
+        "cursorPosition" : "10,0",
+        "scrollLine" : "4",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

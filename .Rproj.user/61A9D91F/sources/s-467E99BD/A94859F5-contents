@@ -1,0 +1,138 @@
+###################################
+# Plotting per building and floor #
+###################################
+
+#Predicting building id 
+#Create plot of predicted values grouped by floor 
+PlotPredBUILDING <- ggplot(actualVSpredicted_KNNfloor0, 
+                        aes(x = PredictionKnn_lon, 
+                            y = PredictionKnn_lat,
+                            colour = PredictionKnn_buildingid))+
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Predicted Locations by building id")
+
+PlotPredBUILDING
+
+#make plot of the errors and group by FLOOR (red is good prediction)
+PlotErrorBUILDING <- ggplot(actualVSpredicted_KNNfloor0, aes(x = LONGITUDE, 
+                                                      y = LATITUDE,
+                                                     colour = (errorsBUILDINGID != 0)))+
+geom_jitter(size=3)+
+theme_classic() +
+labs(title="Error Locations by building")
+
+PlotErrorBUILDING
+
+#Creating plots grouped by floor 
+# make plot of the errors and group by FLOOR
+PlotErrorFLOOR <- ggplot(Wifi_ValidationSetNOZero, 
+                         aes(x = LONGITUDE, 
+                             y = LATITUDE,
+                             colour = (errorsFLOOR != 0)))+
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Errors in FLOOR predictions")
+PlotErrorFLOOR
+
+
+PlotErrorFLOOR1 <- ggplot(Wifi_ValidationSetNOZero)+
+  geom_point(mapping = aes(x = LONGITUDE,
+                           y = LATITUDE,
+                           color = "black")+
+  geom_point(mapping = aes(x = LONGITUDE,
+                           y = LATITUDE,
+                           color = ~(errorsFLOOR != 0)))
+PlotErrorFLOOR1
+
+                          aes(x = LONGITUDE, 
+                              y = LATITUDE,
+                              colour = FLOOR)) +  
+  geom_point(aes(x = LONGITUDE,
+                 y = LATITUDE,
+                 colour = (errorsFLOOR != 0)))
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Errors in each individual floor")
+PlotErrorFLOOR1
+
+
+PlotErrorFLOOR2 <- ggplot(`errorsFLOOR-validation`, 
+                          aes(x = LONGITUDE, 
+                              y = LATITUDE,
+                              colour = (errorsFLOOR != 0))) +  
+facet_wrap(~FLOOR) + 
+geom_jitter()+
+  theme_classic() +
+  labs(title="Error Locations by floor")
+PlotErrorFLOOR2
+###
+PlotErrorFLOOR21 <- ggplot(Wifi_ValidationSetNOZero, 
+                          aes(x = LONGITUDE, 
+                              y = LATITUDE,
+                              colour = (errorsFLOOR != 0))) +  
+  facet_wrap(~FLOOR) + 
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Errors in each individual floor")
+PlotErrorFLOOR21
+
+
+
+# plot the errors ----
+# make plot of the errors of more dan 8 meters with latitude:
+PlotErrorLATITUDE <- ggplot(actualVSpredicted_KNNfloor0, aes(x=LONGITUDE, y=LATITUDE), colour = "black")+
+  geom_jitter()+
+  geom_jitter(aes(x = LONGITUDE, 
+                  y = LATITUDE,
+                  colour = (errorsLat > 8 | errorsLat < -8)))+
+  theme_classic() +
+  labs(title="Error Locations",
+       subtitle = "More than 8 meters in LATITUDE")
+PlotErrorLATITUDE
+
+#Predicting floor
+#Create plot of predicted values grouped by building 
+PlotPredFLOOR <- ggplot(actualVSpredicted_KNNbuild2, 
+                           aes(x = PredictionKnn_lon, 
+                               y = PredictionKnn_lat,
+                               colour = PredictionKnn_floor))+
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Predicted Locations by floor")
+
+PlotPredFLOOR
+
+# make plot of the errors and group by FLOOR (red is good prediction)
+#PlotErrorBUILDING <- ggplot(actualVSpredicted_KNNbuild1, aes(x = LONGITUDE, 
+ #                                                      y = LATITUDE,
+  #                                                     colour = (errorsFLOOR != 0)))+
+  #geom_jitter(size=3)+
+  #theme_classic() +
+  #labs(title="Error Locations by floor")
+
+#PlotErrorBUILDING
+
+#Creating plots grouped by floor 
+# make plot of the errors and group by FLOOR
+PlotErrorFLOOR <- ggplot(actualVSpredicted_KNNbuild2, aes(x = LONGITUDE, 
+                                              y = LATITUDE,
+                                              colour = (errorsFLOOR != 0)))+
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Error Locations by floor")
+PlotErrorFLOOR
+
+
+# plot the errors ----
+# make plot of the errors of more dan 8 meters with latitude:
+PlotErrorLATITUDE <- ggplot(actualVSpredicted_KNNbuild2, aes(x=LONGITUDE, y=LATITUDE), colour = "black")+
+  geom_jitter()+
+  geom_jitter(aes(x = LONGITUDE, 
+                  y = LATITUDE,
+                  colour = (errorsLat > 8 | errorsLat < -8)))+
+  theme_classic() +
+  labs(title="Error Locations",
+       subtitle = "More than 8 meters in LATITUDE")
+PlotErrorLATITUDE
+

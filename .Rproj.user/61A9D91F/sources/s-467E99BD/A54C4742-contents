@@ -1,0 +1,116 @@
+##############################################
+# Name: Francesca Prata                      #
+# Project: WiFi Locationing                  #
+# Script: Plotting errors for random forest  #                  
+# Date: 11 March 2019                        #                  
+# Version: 1                                 #                  
+##############################################
+
+#Loading required packages
+if(!require(pacman))install.packages("pacman")
+
+pacman::p_load('dplyr', 'tidyr', 'gapminder',
+               'ggplot2',  'ggalt',
+               'forcats', 'R.utils', 'png', 
+               'grid', 'ggpubr', 'scales',
+               'bbplot', 'devtools', 'plotly')
+
+
+#Retrieving predictions, actuals and error file
+resultsVSactual <- readRDS(file = "resultsVSactualRF(1).rds")
+
+
+# change BUILDINGID, FLOOR and their predicted values back into factors
+resultsVSactual$BUILDINGID <- as.factor(resultsVSactual$BUILDINGID)
+resultsVSactual$FLOOR <- as.factor(resultsVSactual$FLOOR)
+resultsVSactual$PredictedBUIDLING_SVM <- as.factor(resultsVSactual$PredRF_building)
+resultsVSactual$PredictedFLOOR_KNN <- as.factor(resultsVSactual$PredRF_floor)
+#resultsVSactual$errorsBUILDING <- as.factor(resultsVSactual$errorsBUILDING)
+#resultsVSactual$errorsFLOOR <- as.factor(resultsVSactual$errorsFLOOR)
+
+
+#Creating plots of actual values grouped by building 
+
+#Plot of actual values 
+PlotBUILDING <- ggplot(Wifi_ValidationSetNOZero, 
+                       aes(x = LONGITUDE, 
+                           y = LATITUDE, 
+                           colour = BUILDINGID)) + 
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Actual Locations",
+       subtitle = "By buidling")
+
+PlotBUILDING
+
+
+#Create plot of predicted values grouped by building 
+PlotPredBUILDING <- ggplot(Wifi_ValidationSetNOZero, 
+                           aes(x = LONGITUDE, 
+                               y = LATITUDE,
+                               colour = predBUILD_Svm))+
+                    geom_jitter()+
+                    theme_classic() +
+                    labs(title="Predicted Locations by building")
+      
+PlotPredBUILDING
+
+# make plot of the errors and group by BUILDING (red is good prediction)
+PlotErrorBUILDING <- ggplot(Wifi_ValidationSetNOZero, 
+                            aes(x = LONGITUDE, 
+                                y = LATITUDE,
+                                colour = (errorsBUILD != 0)))+
+                            geom_jitter(size=3)+
+                            theme_classic() +
+                            labs(title="Error Locations by building")
+      
+PlotErrorBUILDING
+
+#Creating plots grouped by floor 
+# make plot of the errors and group by FLOOR
+#Plot of actual values 
+PlotFLOOR <- ggplot(Wifi_ValidationSetNOZero, 
+                       aes(x = LONGITUDE, 
+                           y = LATITUDE, 
+                           colour = FLOOR)) + 
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Actual Locations",
+       subtitle = "By floor")
+
+PlotFLOOR
+
+#Create plot of predicted values grouped by building 
+PlotPredFLOOR <- ggplot(Wifi_ValidationSetNOZero, 
+                           aes(x = LONGITUDE, 
+                               y = LATITUDE,
+                               colour = predFLOOR_KNN))+
+  geom_jitter()+
+  theme_classic() +
+  labs(title="Predicted Locations by floor")
+
+PlotPredFLOOR
+
+# make plot of the errors and group by BUILDING (red is good prediction)
+PlotErrorFLOOR <- ggplot(Wifi_ValidationSetNOZero, 
+                            aes(x = LONGITUDE, 
+                                y = LATITUDE,
+                                colour = (errorsFLOOR != 0)))+
+  geom_jitter(size=3)+
+  theme_classic() +
+  labs(title="Error Locations by floor")
+
+PlotErrorFLOOR
+
+# plot the errors ----
+# make plot of the errors of more dan 8 meters with latitude:
+PlotErrorLATITUDE <- ggplot(resultsVSactual, aes(x=LONGITUDE, y=LATITUDE), colour = "black")+
+  geom_jitter()+
+  geom_jitter(aes(x = LONGITUDE, 
+                  y = LATITUDE,
+                  colour = (errorsLATITUDE > 8 | errorsLATITUDE < -8)))+
+  theme_classic() +
+  labs(title="Error Locations",
+       subtitle = "More than 8 meters in LATITUDE")
+PlotErrorLATITUDE
+

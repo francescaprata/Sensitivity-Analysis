@@ -1,0 +1,63 @@
+#############################################################
+# Name: Francesca Prata                                     #
+# Project: WiFi Locationing                                 #
+# Script: Creating pipeline C5.0 for predicting building ID #                  
+# Date: 5 March 2019                                        # 
+# Version: 1                                                #
+#############################################################
+
+#Retrieving previous dataframe 
+source(file = "1.Importing_Dataset_&_Initial_Exploration_v1.R")
+
+#Data Partition
+set.seed(123)
+inTrain<- createDataPartition(y = Wifi_TrainSet$BUILDINGID,
+                              p = 0.25,
+                              list = FALSE)
+
+## Separating the data into training and testing 
+training <- Wifi_TrainSet[inTrain,]
+testing <- Wifi_TrainSet[-inTrain,]
+
+#distinguish x & y values
+WifiTrain_xvalues <- training[,1:520]
+WifiTrain_yvalues <- training[,c("BUILDINGID","FLOOR","LONGITUDE","LATITUDE")]
+
+WifiTest_xvalues <- testing[,1:520]
+WifiTest_yvalues <- testing[,c("BUILDINGID","FLOOR","LONGITUDE","LATITUDE")]
+
+#Setting cross validation parameters
+fitControlC5 <- trainControl(method = "repeatedcv",
+                           number = 10,
+                           repeats = 1)
+
+#Train C5.0 model
+set.seed(123)
+C5FitBuilding <- train(x = WifiTrain_xvalues, 
+                y = WifiTrain_yvalues$BUILDINGID,
+               method = "C5.0",
+               metric = "Accuracy",
+               tuneLength = 1,
+               trControl = fitControlC5)
+
+#See results 
+print(C5FitBuilding)
+plot(C5FitBuilding)
+
+#Predict outcomes on the testing data
+Pred_C5_building <- predict(C5FitBuilding, newdata = WifiTest_xvalues)
+postResample(Pred_C5_building, WifiTest_yvalues$BUILDINGID)
+
+#Add predicted to test values
+WifiTest_yvalues$Pred_building <- Pred_C5_building
+
+#See the most important predictors
+#varImp(C5FitBuilding)
+
+#show values in confusion matrix
+#confusionMatrix(data = Prediction_C5, WifiTest_yvalues$BUILDINGID)
+
+#Error visualization /////////////// CHECK THIS
+ggplot(WifiTest_yvalues) +
+  geom_point(aes(x = BUILDINGID, y = FLOOR)) +
+  geom_point(aes(x = Pred_building, y = Pred_floor), color = "red", alpha = 0.5) 
